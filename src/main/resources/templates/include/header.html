@@ -1,0 +1,61 @@
+<!-- 상단 메뉴 부분 -->
+<html xmlns:th="http://www.thymeleaf.org" xmlns:display="http://www.w3.org/1999/xhtml">
+
+<header>
+    <div class="customHeader">
+
+
+    <nav class="navbar navbar-expand-md fixed-top shadow-lg" style="background-color: white; height: 70px;">
+        <a th:href="@{/main}"  class="navbar-brand d-flex align-items-center">
+            <img src="/logo/logo.png" style="width: 180px;">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse"
+                data-target="#navMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarsExampleXxl" style="display:none" >
+            <ul class="navbar-nav me-auto mb-2 mb-xl-0" >
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{https://panasonic1.talentlms.com/user/courses/(id=${id})}" style="color: black; display:none;"   >내 강의</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{https://panasonic1.talentlms.com/catalog/index}" style="color: black; display:none;">강의 등록</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{https://panasonic1.talentlms.com/reports/userinfo/(id=${id})}" style="color: black; display:none;">진행과정</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/user/joinGroup}" style="color: black; display:none;">그룹 가입</a>
+                </li>
+            </ul>
+        </div>
+
+        <div th:if="${login_key}" class="dropdown  me-auto" id="navMenu">
+
+                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    회원관리
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" th:href="@{https://panasonic1.talentlms.com/user/info/(id=${id})}">내 정보</a>
+                    <a class="dropdown-item" th:href="@{/user/logout}">로그 아웃</a>
+                </div>
+
+        </div>
+    </nav>
+
+</div>
+</header>
+</html>
+
+<style>
+    .customHeader{
+        position: absolute;
+
+        clear:both;
+    }
+</style>
+
+
+
+

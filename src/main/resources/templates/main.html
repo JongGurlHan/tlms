@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <title>Panasonic 온라인 교육페이지</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/album/">
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+    <!-- Bootstrap core CSS -->
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        .login{
+            width: 5px;
+            height: 5px;
+            position: relative;
+            border: 1px solid black;
+            overflow: hidden;
+            margin: 0 auto;
+
+        }
+        iframe{
+            width: 1200px;
+            height: 600px;
+            top: -44px;
+            right: 530px;
+        }
+    </style>
+</head>
+
+<body>
+<header th:replace="include/header.html" :: header></header>
+
+
+<div style="display: none">
+    유저 번호: <span th:text="${id}"> </span>
+    로그인 url <span th:text="${login_key}"> </span>
+</div>
+
+<!--<div class="main">-->
+    <div class="card shadow col-sm-7 mx-auto" style="margin-top:100px">
+        <div class="card-body ">
+
+
+            <!-- 메뉴 -->
+             <div th:if="${login_key}" class="container menu" style="margin-top:50px; text-align: center;">
+                <a class="btn btn-outline-secondary btn-lg  col-2 " th:href="@{https://panasonic1.talentlms.com/user/courses/(id=${id})}" role="button">내 강의</a>
+                <a class="btn btn-outline-secondary btn-lg  col-2 "th:href="@{https://panasonic1.talentlms.com/catalog/index}" role="button">강의 등록</a>
+                <a class="btn btn-outline-secondary btn-lg  col-2 " th:href="@{https://panasonic1.talentlms.com/reports/userinfo/(id=${id})}" role="button">진행과정</a>
+                <a class="btn btn-outline-secondary btn-lg  col-2 " th:href="@{/user/joinGroup}" role="button">그룹가입</a>
+            </div>
+            <!-- 메뉴 -->
+
+
+            <!-- 게시글 리스트 -->
+            <div class="container notice" style="margin-top:100px">
+                <div class="card ">
+                    <div class="card-body">
+                        <h4 class="card-title">공지사항</h4>
+                        <table class="table table-hover" id='board_list'>
+                            <thead>
+                            <tr>
+                                <th class="text-center d-none d-md-table-cell">글번호</th>
+                                <th class="w-50">제목</th>
+                                <th class="text-center d-none d-md-table-cell">작성자</th>
+                                <th class="text-center d-none d-md-table-cell">작성날짜</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td class="text-center d-none d-md-table-cell">4</td>
+                                <td><a href='board_read.html'>글 제목 입니다</a></td>
+                                <td class="text-center d-none d-md-table-cell">홍길동</td>
+                                <td class="text-center d-none d-md-table-cell">2021-11-12</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center d-none d-md-table-cell">4</td>
+                                <td><a href='board_read.html'>글 제목 입니다</a></td>
+                                <td class="text-center d-none d-md-table-cell">홍길동</td>
+                                <td class="text-center d-none d-md-table-cell">2021-11-12</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center d-none d-md-table-cell">4</td>
+                                <td><a href='board_read.html'>글 제목 입니다</a></td>
+                                <td class="text-center d-none d-md-table-cell">홍길동</td>
+                                <td class="text-center d-none d-md-table-cell">2021-11-12</td>
+                            </tr>
+                            <tr>
+                                <td class="text-center d-none d-md-table-cell">4</td>
+                                <td><a href='board_read.html'>글 제목 입니다</a></td>
+                                <td class="text-center d-none d-md-table-cell">홍길동</td>
+                                <td class="text-center d-none d-md-table-cell">2021-11-12</td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+           <!-- 게시글 리스트 -->
+
+            <!--강의리스트-->
+            <div  href="htps://panasonic1.talentlms.com/user/courses/(id=${id})"> Courses</div>
+
+            <div>
+                <iframe th:src="${login_key}" src="https://panasonic1.talentlms.com/index" style="display:none;"></iframe>
+            </div>
+
+        </div>
+    </div>
+<!--</div>-->
+
+
+
+
+
+<footer th:replace="include/footer.html" :: footer></footer>
+
+<script src="/js/bootstrap.bundle.min.js"></script>
+
+
+
+
+</body>
+</html>
