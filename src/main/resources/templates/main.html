@@ -104,7 +104,32 @@
            <!-- 게시글 리스트 -->
 
             <!--강의리스트-->
-            <div  href="htps://panasonic1.talentlms.com/user/courses/(id=${id})"> Courses</div>
+
+            <div class="album py-5 ">
+                <div class="container">
+                    <h5 class="card-title">수강중인 강의</h5>
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                        <tr th:each="course : ${allCourses}">
+                            <div class="col">
+                                <div class="card shadow-sm">
+<!--                                    <svg class="bd-placeholder-img card-img-top" width="100%" height="0px" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: Thumbnail" preserveAspectRatio="xMidYMid slice" focusable="false" >-->
+
+<!--                                        <img th:src="${item.imgUrl}" src="https://static-breeze.nike.co.kr/kr/ko_kr/cmsstatic/product/DH2684-001/b92e7e60-431c-4e90-b88a-9a0e8db1d2a1_primary.jpg?snkrBrowse">-->
+<!--                                    </svg>-->
+
+                                    <div class="card-body">
+                                        <p class="list-group-item list-group-item-action" th:text="${course.name}" th:onclick="|location.href='@{${course.url}}'|" >강의링크</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </tr>
+
+                    </div>
+                </div>
+            </div>
+
+
 
             <div>
                 <iframe th:src="${login_key}" src="https://panasonic1.talentlms.com/index" style="display:none;"></iframe>

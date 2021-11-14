@@ -1,10 +1,13 @@
 package panasonic.tlms.controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import lombok.RequiredArgsConstructor;
 import okhttp3.*;
 import org.apache.http.HttpRequest;
 import org.apache.http.HttpResponse;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import panasonic.tlms.beans.UserBean;
+import panasonic.tlms.course.Course;
+import panasonic.tlms.course.CourseRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,7 +26,10 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/user")
+@RequiredArgsConstructor
 public class UserController {
+
+	private final CourseRepository courseRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -72,13 +80,33 @@ public class UserController {
 						.build();
 
 				Response response3 = client.newCall(request3).execute();
+				System.out.println(response3.getClass().getName());
 
-				//response3 값을 String 형식
-				String jsonData = response3.body().string();
+				//String형으로
+				String user = response3.body().string();
+				//json형으로
+				JSONObject user2 = new JSONObject(user);
 
+				JSONArray courses = user2.getJSONArray("courses");
+				System.out.println(courses);
 
-				System.out.println(jsonData);
+				for(int i =0; i<courses.length(); i++){
+					JSONObject object  = courses.getJSONObject(i);
+					String course_id = object.getString("id");
+					String name = object.getString("name");
+					String url = object.getString("last_accessed_unit_url");
 
+					Course course = new Course();
+					course.setId(Integer.parseInt(course_id));
+					course.setName(name);
+					course.setUrl(url);
+
+					courseRepository.save(course);
+
+				}
+
+				List<Course>allCourses = courseRepository.findAll();
+				model.addAttribute("allCourses", allCourses);
 
 
 
@@ -102,7 +130,6 @@ public class UserController {
 				.addHeader("Cookie", "AWSALB=CE4KPSnahOIQsVk2SRvYATE5idXymivET9AJDAoi3RVkMCeZ8cscAhye8aOyZeUdPC05VHTGgQNxiYtjH89WIjJDbDxmB0gLfmnCQRtj74PfHsGmJZP+h5/kN+dkwyVhHnkZ51uksxbb9TCI7wjGpEGGEWmFPXvYBhT5gvQ27m462iy1be5cEv4C2NWUfA==; AWSALBCORS=CE4KPSnahOIQsVk2SRvYATE5idXymivET9AJDAoi3RVkMCeZ8cscAhye8aOyZeUdPC05VHTGgQNxiYtjH89WIjJDbDxmB0gLfmnCQRtj74PfHsGmJZP+h5/kN+dkwyVhHnkZ51uksxbb9TCI7wjGpEGGEWmFPXvYBhT5gvQ27m462iy1be5cEv4C2NWUfA==; PHPSESSID=elb~il6avdkqtemuo8ppsaudjeuum7")
 				.build();
 		Response response = client.newCall(request).execute();
-
 
 
 		return "user/logout";
