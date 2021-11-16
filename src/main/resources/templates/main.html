@@ -14,6 +14,16 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+        html, body{
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        .main{
+            min-height: 100%;
+            position: relative;
+        }
+
         .login{
             width: 5px;
             height: 5px;
@@ -23,12 +33,32 @@
             margin: 0 auto;
 
         }
-        iframe{
-            width: 1200px;
-            height: 600px;
-            top: -44px;
-            right: 530px;
-        }
+        /*iframe{*/
+        /*    width: 1200px;*/
+        /*    height: 600px;*/
+        /*    top: -44px;*/
+        /*    right: 530px;*/
+        /*}*/
+
+         .customFooter {
+             position: absolute;
+             left: 0;
+             bottom: 0;
+             width: 100%;
+             padding: 0px 0;
+             text-align: center;
+             color: white;
+             font-size: small;
+         }
+         /*.notice{*/
+         /*    position:relative;*/
+         /*    margin-top: 50px;*/
+         /*    width: 800px;*/
+         /*    height: 250px;*/
+         /*    top: 50px;*/
+
+         /*}*/
+
     </style>
 </head>
 
@@ -41,8 +71,8 @@
     로그인 url <span th:text="${login_key}"> </span>
 </div>
 
-<!--<div class="main">-->
-    <div class="card shadow col-sm-7 mx-auto" style="margin-top:100px">
+<div class="main">
+    <div class="card shadow col-sm-7 mx-auto" style="margin-top:50px; ">
         <div class="card-body ">
 
 
@@ -56,57 +86,79 @@
             <!-- 메뉴 -->
 
 
-            <!-- 게시글 리스트 -->
-            <div class="container notice" style="margin-top:100px">
-                <div class="card ">
-                    <div class="card-body">
-                        <h4 class="card-title">공지사항</h4>
-                        <table class="table table-hover" id='board_list'>
-                            <thead>
-                            <tr>
-                                <th class="text-center d-none d-md-table-cell">글번호</th>
-                                <th class="w-50">제목</th>
-                                <th class="text-center d-none d-md-table-cell">작성자</th>
-                                <th class="text-center d-none d-md-table-cell">작성날짜</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">4</td>
-                                <td><a href='board_read.html'>글 제목 입니다</a></td>
-                                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                                <td class="text-center d-none d-md-table-cell">2021-11-12</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">4</td>
-                                <td><a href='board_read.html'>글 제목 입니다</a></td>
-                                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                                <td class="text-center d-none d-md-table-cell">2021-11-12</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">4</td>
-                                <td><a href='board_read.html'>글 제목 입니다</a></td>
-                                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                                <td class="text-center d-none d-md-table-cell">2021-11-12</td>
-                            </tr>
-                            <tr>
-                                <td class="text-center d-none d-md-table-cell">4</td>
-                                <td><a href='board_read.html'>글 제목 입니다</a></td>
-                                <td class="text-center d-none d-md-table-cell">홍길동</td>
-                                <td class="text-center d-none d-md-table-cell">2021-11-12</td>
-                            </tr>
+            <!-- 공지사항 리스트 -->
+<!--            <div class="notice">-->
+<!--            <div id="notice_wrap"  >-->
+<!--                <iframe class="notice" src="http://19617205.hs-sites.com/-temporary-slug-d7601fe3-4e88-41cf-97b9-8814b2bc6a24"-->
+<!--                width="800" height="250"  style=" margin-left: -36px;  margin-top: -486px"></iframe>-->
 
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+<!--            </div>-->
+
+<!--            <div style="border: 2px #1a1e21;  max-width: 800px; height: 400px; ">-->
+<!--                <iframe scrolling="no" src="http://19617205.hs-sites.com/-temporary-slug-d7601fe3-4e88-41cf-97b9-8814b2bc6a24"-->
+<!--                        style="top: 400px;  width: 1200px; height:400px; border: 0px none; margin-top:300px; margin: 15px auto;margin-left: -36px; height: 550px; margin-top: -318px; margin-bottom: 70px;">-->
+<!--                </iframe>-->
+<!--            </div>-->
+
+            <div style="border: 1px solid gray; overflow: hidden; margin: 50px auto; max-width: 736px;">
+                <iframe scrolling="no" src="http://19617205.hs-sites.com/-temporary-slug-d7601fe3-4e88-41cf-97b9-8814b2bc6a24" style="border: 0px none; margin-left: -85px; height: 659px; margin-top: -411px; width: 926px;">
+                </iframe>
             </div>
+
+<!--            </div>-->
+<!--            <div class="container notice" style="margin-top:50px">-->
+<!--                <div class="card ">-->
+<!--                    <div class="card-body">-->
+<!--                        <h4 class="card-title">공지사항</h4>-->
+<!--                        <table class="table table-hover" id='board_list'>-->
+<!--                            <thead>-->
+<!--                            <tr>-->
+<!--                                <th class="text-center d-none d-md-table-cell">글번호</th>-->
+<!--                                <th class="w-50">제목</th>-->
+<!--                                <th class="text-center d-none d-md-table-cell">작성자</th>-->
+<!--                                <th class="text-center d-none d-md-table-cell">작성날짜</th>-->
+<!--                            </tr>-->
+<!--                            </thead>-->
+<!--                            <tbody>-->
+<!--                            <tr>-->
+<!--                                <td class="text-center d-none d-md-table-cell">4</td>-->
+<!--                                <td><a href='board_read.html'>글 제목 입니다</a></td>-->
+<!--                                <td class="text-center d-none d-md-table-cell">홍길동</td>-->
+<!--                                <td class="text-center d-none d-md-table-cell">2021-11-12</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td class="text-center d-none d-md-table-cell">4</td>-->
+<!--                                <td><a href='board_read.html'>글 제목 입니다</a></td>-->
+<!--                                <td class="text-center d-none d-md-table-cell">홍길동</td>-->
+<!--                                <td class="text-center d-none d-md-table-cell">2021-11-12</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td class="text-center d-none d-md-table-cell">4</td>-->
+<!--                                <td><a href='board_read.html'>글 제목 입니다</a></td>-->
+<!--                                <td class="text-center d-none d-md-table-cell">홍길동</td>-->
+<!--                                <td class="text-center d-none d-md-table-cell">2021-11-12</td>-->
+<!--                            </tr>-->
+<!--                            <tr>-->
+<!--                                <td class="text-center d-none d-md-table-cell">4</td>-->
+<!--                                <td><a href='board_read.html'>글 제목 입니다</a></td>-->
+<!--                                <td class="text-center d-none d-md-table-cell">홍길동</td>-->
+<!--                                <td class="text-center d-none d-md-table-cell">2021-11-12</td>-->
+<!--                            </tr>-->
+
+<!--                            </tbody>-->
+<!--                        </table>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
            <!-- 게시글 리스트 -->
 
-            <!--강의리스트-->
 
-            <div class="album py-5 ">
-                <div class="container">
+            <!--강의리스트-->
+            <div class="card-body"  >
+
+
+            <div class="album py-5 "style="border: 1px solid gray">
+                <div class="container" >
                     <h5 class="card-title">수강중인 강의</h5>
                     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
                         <tr th:each="course : ${allCourses}">
@@ -135,15 +187,36 @@
                 <iframe th:src="${login_key}" src="https://panasonic1.talentlms.com/index" style="display:none;"></iframe>
             </div>
 
+            </div>
+        </div>
+
+
+
+
+
+    </div>
+
+<!--<footer class="text-muted py-5" >-->
+<div class="customFooter">
+    <div class="body" style="background-color: #003B68; height: 80px;">
+        <br>
+        <div class="copyright"><span style="color: #c5c5c5; position: absolute; left: 50%; transform: translateX(-50%);">© Panasonic Industrial Devices Sales Korea Co.,Ltd</span></div><br>
+        <div class="copyright"><span style="color: #c5c5c5;">&nbsp;</span></div>
+        <div style="position: absolute; left: 50%; transform: translateX(-50%); background-color: #003B68;"><a href="https://industrial.panasonic.com/kr/about-panasonic" rel="noopener" target="_blank"><span style="color: white;">회사개요</span></a><span style="color: white;">ㅣ</span> <a href="https://industrial.panasonic.com/kr/sitemap" rel="noopener" target="_blank"><span style="color: white;">사이트맵</span></a><span style="color: white;">ㅣ</span><a href="https://industrial.panasonic.com/kr/terms-of-use" rel="noopener" target="_blank"><span style="color: white;">이용약관</span></a><span style="color: white;">ㅣ</span><a href=https://www3.panasonic.biz/ac/kr/privacy-policy/index.jsp rel="noopener" target="_blank"><span style="color: white;">개인정보 처리방침</span></a><span style="color: white;">ㅣ</span><a href=https://www3.panasonic.biz/ac/kr/cookies-policy/index.jsp rel="noopener" target="_blank"><span style="color: white;">쿠키정책</span></a>
         </div>
     </div>
+</div>
+
+</div>
+<!--</footer>-->
 <!--</div>-->
 
 
 
 
 
-<footer th:replace="include/footer.html" :: footer></footer>
+
+
 
 <script src="/js/bootstrap.bundle.min.js"></script>
 

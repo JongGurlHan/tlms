@@ -10,6 +10,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
     <style>
+
         .customFooter {
             position: absolute;
             left: 0;
@@ -18,31 +19,29 @@
             padding: 0px 0;
             text-align: center;
             color: white;
+            font-size: small;
+            clear:both;
         }
 
-        /*body{*/
-        /*    height: 100vh;*/
-        /*    width: 100vh;*/
-        /*    background-repeat : no-repeat;*/
-        /*    background-size : cover;*/
-        /*}*/
 
         .main{
-            height: 900px;
+            background-image: url('/image/main1.png');
+            background-position: center center;
+            background-repeat : no-repeat;
+            background-size : 1500px 800px;
+            /*background-size : contain;*/
+        }
 
+        .col-sm-3{
+            margin-left: -400px;
 
         }
 
-        .container {
-            background-image: url('/image/main1.png');
-            background-repeat : no-repeat;
-            /*background-size : cover;*/
-            background-size: auto;
-            /*height: 100%;*/
-            /*background-color: cornflowerblue;*/
+        .card{
+            margin-top: 195px;
         }
         .row{
-            height:800px;
+            height:100vh;
         }
     </style>
 </head>
@@ -52,9 +51,7 @@
 
     <div class="main">
 
-
-
-                <div class="container" style="margin-top:100px">
+                <div class="container" >
                     <div class="row">
                         <div class="col-sm-3"></div>
                         <div class="col-sm-6">
@@ -62,7 +59,7 @@
                                 <div class="card-body">
 
 
-                                    <form th:action  method="post">
+                                    <form th:action="@{/main}"  method="post">
                                         <div class="form-group">
                                             <label for="user_id">아이디</label>
                                             <input type="text" id="user_id"  name="user_id"class="form-control"/>
@@ -75,26 +72,35 @@
 
                                         <div class="form-group text-right">
                                             <button type="submit" class="btn btn-primary">로그인</button>
-                                            <a href="join.html" th:href="@{/user/join}" class="btn btn-danger">회원가입</a>
+                                            <a href="join.html" th:href="@{http://idskr.panasonic.com/%EA%B0%9C%EC%9D%B8%EC%A0%95%EB%B3%B4%EC%88%98%EC%A7%91%EB%8F%99%EC%9D%98%EB%B0%8F%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%EB%B3%B8%EC%82%AC?utm_referrer=https%3A%2F%2Fpanasonic1.talentlms.com%2F}" class="btn btn-danger">회원가입</a>
                                         </div>
                                     </form>
-
                                 </div>
                             </div>
                         </div>
                         <!--        <div class="col-sm-3"></div>-->
                     </div>
                 </div>
-
-
-
     </div>
 
 
 
+<!--<footer class="text-muted py-5" >-->
+    <div class="customFooter">
+        <div class="body" style="background-color: #003B68; height: 80px;">
+            <br>
+            <div class="copyright"><span style="color: #c5c5c5; position: absolute; left: 50%; transform: translateX(-50%);">© Panasonic Industrial Devices Sales Korea Co.,Ltd</span></div><br>
+            <div class="copyright"><span style="color: #c5c5c5;">&nbsp;</span></div>
+            <div style="position: absolute; left: 50%; transform: translateX(-50%); background-color: #003B68;"><a href="https://industrial.panasonic.com/kr/about-panasonic" rel="noopener" target="_blank"><span style="color: white;">회사개요</span></a><span style="color: white;">ㅣ</span> <a href="https://industrial.panasonic.com/kr/sitemap" rel="noopener" target="_blank"><span style="color: white;">사이트맵</span></a><span style="color: white;">ㅣ</span><a href="https://industrial.panasonic.com/kr/terms-of-use" rel="noopener" target="_blank"><span style="color: white;">이용약관</span></a><span style="color: white;">ㅣ</span><a href=https://www3.panasonic.biz/ac/kr/privacy-policy/index.jsp rel="noopener" target="_blank"><span style="color: white;">개인정보 처리방침</span></a><span style="color: white;">ㅣ</span><a href=https://www3.panasonic.biz/ac/kr/cookies-policy/index.jsp rel="noopener" target="_blank"><span style="color: white;">쿠키정책</span></a>
+            </div>
+        </div>
+    </div>
+<!--</footer>-->
 
-    <footer th:replace="include/footer.html :: footer"></footer>
-<script src="/js/bootstrap.bundle.min.js"></script>
+
+
+
+    <script src="/js/bootstrap.bundle.min.js"></script>
 
 
 </body>
