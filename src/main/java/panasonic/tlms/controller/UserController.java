@@ -1,12 +1,8 @@
 package panasonic.tlms.controller;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import lombok.RequiredArgsConstructor;
 import okhttp3.*;
-import org.apache.http.HttpRequest;
-import org.apache.http.HttpResponse;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
@@ -14,15 +10,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import panasonic.tlms.beans.UserBean;
+import panasonic.tlms.user.User;
 import panasonic.tlms.course.Course;
 import panasonic.tlms.course.CourseRepository;
+import panasonic.tlms.user.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -30,6 +25,7 @@ import java.util.List;
 public class UserController {
 
 	private final CourseRepository courseRepository;
+	private final UserRepository userRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -40,82 +36,89 @@ public class UserController {
     @PostMapping("/login")
     public String login(Model model, HttpServletRequest  request, HttpServletResponse httpServletResponse) throws IOException {
 
-//		String id = request.getParameter("user_id");
-//		String user_pw = request.getParameter("user_pw");
-//
-//       			OkHttpClient client = new OkHttpClient().newBuilder()
-//						.build();
-//				MediaType mediaType = MediaType.parse("text/plain");
-//				RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-//						.addFormDataPart("login",id)
-//						.addFormDataPart("password",user_pw)
-//						.build();
-//				Request request2 = new Request.Builder()
-//						.url("https://panasonic1.talentlms.com/api/v1/userlogin")
-//						.method("POST", body)
-//						.addHeader("Authorization", "Basic RFRDejRxWVI1eE1RemNwQjVVbktQWTFpZHNzR0lwOg==")
-//						.addHeader("Cookie", "AWSALB=HNXZ1v2IPVbC6Bhh9BxoJDgq1MteFGnG1xsSeho0O9ZAaWpo7VSLNlgmgGQM5XLpkMAQvCpMEBQ2pe6u2Jx6QhA4FACFdLyM2LAKoPiYxh5eaB1b/dGKBmcL8WFrRK4OWbk60U7KXEr70LzKwXRVXRAi0DSOZ7JMBkHDilUZ92uevakYXqOc6+p6DX7ppA==; AWSALBCORS=HNXZ1v2IPVbC6Bhh9BxoJDgq1MteFGnG1xsSeho0O9ZAaWpo7VSLNlgmgGQM5XLpkMAQvCpMEBQ2pe6u2Jx6QhA4FACFdLyM2LAKoPiYxh5eaB1b/dGKBmcL8WFrRK4OWbk60U7KXEr70LzKwXRVXRAi0DSOZ7JMBkHDilUZ92uevakYXqOc6+p6DX7ppA==; PHPSESSID=elb~sgpmkin8r2cq3o41ru79ps2du0")
-//						.build();
-//				Response response2 = client.newCall(request2).execute();
-//
-//
-//				Gson gson = new Gson();
-//				UserBean userBean = gson.fromJson(response2.body().string(), UserBean.class);
-//
-//
-//				model.addAttribute("id", userBean.getUser_id());
-//				model.addAttribute("login_key", userBean.getLogin_key());
-//
-////				System.out.println(userBean.getLogin_key());
-////				System.out.println(userBean.getUser_id());
-//
-//				//강의정보
-//				OkHttpClient client2 = new OkHttpClient().newBuilder()
-//						.build();
-//				Request request3 = new Request.Builder()
-//						.url("https://panasonic1.talentlms.com/api/v1/users/id:"+userBean.getUser_id())
-//						.method("GET", null)
-//						.addHeader("Authorization", "Basic RFRDejRxWVI1eE1RemNwQjVVbktQWTFpZHNzR0lwOg==")
-//						.addHeader("Cookie", "AWSALB=BMrb5JNU1MJMwLUZDnqSqyGhxcUQwfYVos2nthPQ8EU+41COg65UeDedxNZeQsw0gfeqPKKhI2VTDxw2HIiqqPe6T+Oi57IY/EtEOKraj9oPqNn2QFF1f0Dtr9rFhVWKfu1vfkBCTNIVRxXnGKDXBYFWXNtcBP+YYLb5PSTukcAb+6z2cWgqaD4XnwfJhw==; AWSALBCORS=BMrb5JNU1MJMwLUZDnqSqyGhxcUQwfYVos2nthPQ8EU+41COg65UeDedxNZeQsw0gfeqPKKhI2VTDxw2HIiqqPe6T+Oi57IY/EtEOKraj9oPqNn2QFF1f0Dtr9rFhVWKfu1vfkBCTNIVRxXnGKDXBYFWXNtcBP+YYLb5PSTukcAb+6z2cWgqaD4XnwfJhw==; PHPSESSID=elb~qdoi8nqik68t0jrc2hnkkma6om")
-//						.build();
-//
-//				Response response3 = client.newCall(request3).execute();
-////				System.out.println(response3.getClass().getName());
-//
-//				//Response형 -> String형
-//				String userString = response3.body().string();
-//				//System.out.println(user);
-//
-//				// String형 ->json형
-//				JSONObject userJson = new JSONObject(userString);
-//				//System.out.println(user2);
-//
-//				//json에서 배열가져오기
-//				JSONArray courses = userJson.getJSONArray("courses");
-//				System.out.println(courses);
-//
-//
-//				for(int i =0; i<courses.length(); i++){
-//					JSONObject object  = courses.getJSONObject(i);
-//					String course_id = object.getString("id");
-//					String name = object.getString("name");
-//					String url = object.getString("last_accessed_unit_url");
-//
-//					Course course = new Course();
-//					course.setId(Integer.parseInt(course_id));
-//					course.setName(name);
-//					course.setUrl(url);
-//
-//					courseRepository.save(course);
-//
-//				}
-//
-//				List<Course>allCourses = courseRepository.findAll();
-//				model.addAttribute("allCourses", allCourses);
+			String id = request.getParameter("user_id");
+			String user_pw = request.getParameter("user_pw");
+
+			OkHttpClient client = new OkHttpClient().newBuilder()
+					.build();
+			MediaType mediaType = MediaType.parse("text/plain");
+			RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+					.addFormDataPart("login", id)
+					.addFormDataPart("password",user_pw)
+					.build();
+			Request request2 = new Request.Builder()
+					.url("https://panasonic1.talentlms.com/api/v1/userlogin")
+					.method("POST", body)
+					.addHeader("Authorization", "Basic RFRDejRxWVI1eE1RemNwQjVVbktQWTFpZHNzR0lwOg==")
+					.addHeader("Cookie", "AWSALB=HNXZ1v2IPVbC6Bhh9BxoJDgq1MteFGnG1xsSeho0O9ZAaWpo7VSLNlgmgGQM5XLpkMAQvCpMEBQ2pe6u2Jx6QhA4FACFdLyM2LAKoPiYxh5eaB1b/dGKBmcL8WFrRK4OWbk60U7KXEr70LzKwXRVXRAi0DSOZ7JMBkHDilUZ92uevakYXqOc6+p6DX7ppA==; AWSALBCORS=HNXZ1v2IPVbC6Bhh9BxoJDgq1MteFGnG1xsSeho0O9ZAaWpo7VSLNlgmgGQM5XLpkMAQvCpMEBQ2pe6u2Jx6QhA4FACFdLyM2LAKoPiYxh5eaB1b/dGKBmcL8WFrRK4OWbk60U7KXEr70LzKwXRVXRAi0DSOZ7JMBkHDilUZ92uevakYXqOc6+p6DX7ppA==; PHPSESSID=elb~sgpmkin8r2cq3o41ru79ps2du0")
+					.build();
+			Response response2 = client.newCall(request2).execute();
+
+			System.out.println(response2);
+
+			Gson gson = new Gson();
+			User user = gson.fromJson(response2.body().string(), User.class);
+
+			System.out.println(user);
+
+
+			model.addAttribute("id", user.getUser_id());
+			model.addAttribute("login_key", user.getLogin_key());
+
+
+			userRepository.save(user.getUser_id() );
+			userRepository.save(user.getLogin_key() );
 
 
 
-				return "redirect:/main";
+			//강의정보
+			OkHttpClient client2 = new OkHttpClient().newBuilder()
+					.build();
+			Request request3 = new Request.Builder()
+					.url("https://panasonic1.talentlms.com/api/v1/users/id:"+ user.getUser_id())
+					.method("GET", null)
+					.addHeader("Authorization", "Basic RFRDejRxWVI1eE1RemNwQjVVbktQWTFpZHNzR0lwOg==")
+					.addHeader("Cookie", "AWSALB=BMrb5JNU1MJMwLUZDnqSqyGhxcUQwfYVos2nthPQ8EU+41COg65UeDedxNZeQsw0gfeqPKKhI2VTDxw2HIiqqPe6T+Oi57IY/EtEOKraj9oPqNn2QFF1f0Dtr9rFhVWKfu1vfkBCTNIVRxXnGKDXBYFWXNtcBP+YYLb5PSTukcAb+6z2cWgqaD4XnwfJhw==; AWSALBCORS=BMrb5JNU1MJMwLUZDnqSqyGhxcUQwfYVos2nthPQ8EU+41COg65UeDedxNZeQsw0gfeqPKKhI2VTDxw2HIiqqPe6T+Oi57IY/EtEOKraj9oPqNn2QFF1f0Dtr9rFhVWKfu1vfkBCTNIVRxXnGKDXBYFWXNtcBP+YYLb5PSTukcAb+6z2cWgqaD4XnwfJhw==; PHPSESSID=elb~qdoi8nqik68t0jrc2hnkkma6om")
+					.build();
+
+			Response response3 = client.newCall(request3).execute();
+
+			//Response형 -> String형
+			String userString = response3.body().string();
+			//System.out.println(user);
+
+			// String형 ->json형
+
+			JSONObject userJson = new JSONObject(userString);
+			//System.out.println(user2);
+
+			//json에서 배열가져오기
+		  	try{
+				JSONArray courses = userJson.getJSONArray("courses");
+				System.out.println(courses);
+
+
+				for(int i =0; i<courses.length(); i++){
+					JSONObject object  = courses.getJSONObject(i);
+					String course_id = object.getString("id");
+					String name = object.getString("name");
+					String url = object.getString("last_accessed_unit_url");
+
+					Course course = new Course();
+					course.setId(Integer.parseInt(course_id));
+					course.setName(name);
+					course.setUrl(url);
+
+					courseRepository.save(course);
+
+				}
+
+			}catch (Exception e){
+				System.out.println(e);
+			}
+
+
+			return "redirect:/main";
     }
 
     @GetMapping("/logout")

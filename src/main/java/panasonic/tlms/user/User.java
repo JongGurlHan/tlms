@@ -1,9 +1,9 @@
-package panasonic.tlms.beans;
+package panasonic.tlms.user;
 
 import lombok.Data;
 
 @Data
-public class UserBean {
+public class User {
 
     private String user_id;
     private String user_pw;

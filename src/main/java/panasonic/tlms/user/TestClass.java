@@ -1,4 +1,4 @@
-package panasonic.tlms.beans;
+package panasonic.tlms.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
