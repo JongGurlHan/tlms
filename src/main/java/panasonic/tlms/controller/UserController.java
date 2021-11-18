@@ -59,6 +59,7 @@ public class UserController {
 			Gson gson = new Gson();
 			User user = gson.fromJson(response2.body().string(), User.class);
 
+			
 			System.out.println(user);
 
 
