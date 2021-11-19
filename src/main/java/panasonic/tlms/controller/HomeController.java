@@ -41,6 +41,6 @@ public class HomeController {
 
         List<Course>allCourses = courseRepository.findAll();
         model.addAttribute("allCourses", allCourses);
-        return "main";
+        return "/main";
     }
 }

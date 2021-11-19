@@ -83,6 +83,14 @@
                 <a class="btn btn-outline-secondary btn-lg  col-2 " th:href="@{https://panasonic1.talentlms.com/reports/userinfo/(id=${id})}" role="button">진행과정</a>
                 <a class="btn btn-outline-secondary btn-lg  col-2 " th:href="@{/user/joinGroup}" role="button">그룹가입</a>
             </div>
+
+<!--            <div>-->
+<!--                <iframe th:src="${login_key}" src="https://panasonic1.talentlms.com/index" style="display:none;"></iframe>-->
+<!--            </div>  -->
+
+            <div>
+                <iframe th:src="${login_key}" src="https://panasonic1.talentlms.com/index" style="width: 800px" ></iframe>
+            </div>
             <!-- 메뉴 -->
 
 
@@ -136,9 +144,7 @@
 
 
 
-            <div>
-                <iframe th:src="${login_key}" src="https://panasonic1.talentlms.com/index" style="display:none;"></iframe>
-            </div>
+
 
             </div>
         </div>
