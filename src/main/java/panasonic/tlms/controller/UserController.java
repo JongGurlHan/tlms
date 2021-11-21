@@ -18,6 +18,7 @@ import panasonic.tlms.user.UserRepository;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -123,14 +124,19 @@ public class UserController {
     }
 
     @GetMapping("/logout")
-	public String logout() throws IOException {
+	public String logout(Model model) throws IOException {
+
+		List<String> userInfo = userRepository.findAll();
+
+
+		String id = userInfo.get(0);
 
     	OkHttpClient client = new OkHttpClient().newBuilder()
 				.build();
 		MediaType mediaType = MediaType.parse("text/plain");
 		RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
-				.addFormDataPart("user_id","1")
-				.addFormDataPart("next","example.com")
+				.addFormDataPart("user_id", id)
+				.addFormDataPart("next","http://115.85.181.61:8030/user/login")
 				.build();
 		Request request = new Request.Builder()
 				.url("https://panasonic1.talentlms.com/api/v1/userlogout")
@@ -138,7 +144,22 @@ public class UserController {
 				.addHeader("Authorization", "Basic RFRDejRxWVI1eE1RemNwQjVVbktQWTFpZHNzR0lwOg==")
 				.addHeader("Cookie", "AWSALB=CE4KPSnahOIQsVk2SRvYATE5idXymivET9AJDAoi3RVkMCeZ8cscAhye8aOyZeUdPC05VHTGgQNxiYtjH89WIjJDbDxmB0gLfmnCQRtj74PfHsGmJZP+h5/kN+dkwyVhHnkZ51uksxbb9TCI7wjGpEGGEWmFPXvYBhT5gvQ27m462iy1be5cEv4C2NWUfA==; AWSALBCORS=CE4KPSnahOIQsVk2SRvYATE5idXymivET9AJDAoi3RVkMCeZ8cscAhye8aOyZeUdPC05VHTGgQNxiYtjH89WIjJDbDxmB0gLfmnCQRtj74PfHsGmJZP+h5/kN+dkwyVhHnkZ51uksxbb9TCI7wjGpEGGEWmFPXvYBhT5gvQ27m462iy1be5cEv4C2NWUfA==; PHPSESSID=elb~il6avdkqtemuo8ppsaudjeuum7")
 				.build();
-		Response response = client.newCall(request).execute();
+		Response logout_response = client.newCall(request).execute();
+
+		System.out.println("아이디는" +id);
+
+		String resString = logout_response.body().string();
+		JSONObject logoutJson = new JSONObject(resString);
+
+		String logout_url = (String) logoutJson.get("redirect_url");
+
+		model.addAttribute(logout_url);
+
+		System.out.println("logout_url: " + logout_url);
+
+
+
+
 
 
 		return "user/logout";
